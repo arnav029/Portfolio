@@ -1,41 +1,205 @@
-{% extends 'main/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arnav Patil - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+</head>
+<body class="bg-black text-white font-poppins">
+    <header class="fixed w-full top-0 z-50 bg-black bg-opacity-50 backdrop-blur-md">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold">AP</a>
+            <ul class="flex space-x-6">
+                <li><a href="#about" class="hover:text-blue-400 transition">About</a></li>
+                <li><a href="#experience" class="hover:text-blue-400 transition">Experience</a></li>
+                <li><a href="#projects" class="hover:text-blue-400 transition">Projects</a></li>
+                <li><a href="#skills" class="hover:text-blue-400 transition">Skills</a></li>
+                <li><a href="#contact" class="hover:text-blue-400 transition">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-{% block content %}
-<!-- About Section -->
-<section id="about" class="min-h-screen flex items-center bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-    <div class="container mx-auto px-6 py-20">
-        <div class="flex flex-col md:flex-row items-center">
-            {% if profile.profile_image %}
-            <div class="md:w-1/3 mb-8 md:mb-0">
-                <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" 
-                     class="rounded-full w-64 h-64 object-cover shadow-2xl mx-auto">
+    <main>
+        <section id="hero" class="h-screen flex items-center justify-center text-center relative">
+            <!-- Dark overlay -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-black/60 z-10"></div>
+            
+            <!-- Background image -->
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550859492-d5da9d8e45f3')] bg-cover bg-center bg-no-repeat opacity-50"></div>
+            
+            <!-- Content -->
+            <div class="relative z-20">
+                <h1 class="text-6xl font-bold mb-4 text-white">Arnav Patil</h1>
+<h2 class="text-2xl text-blue-400 mb-8">Backend Developer | Problem Solver</h2>
+                <a href="#contact" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full transition">Get in touch</a>
             </div>
-            {% endif %}
-            <div class="md:w-2/3 md:pl-12">
-                <h1 class="text-5xl font-bold mb-4">{{ profile.name }}</h1>
-                <h2 class="text-2xl mb-6">{{ profile.title }}</h2>
-                <p class="text-xl mb-8">{{ profile.bio }}</p>
-                <div class="flex space-x-4">
-                    {% if profile.github %}
-                    <a href="{{ profile.github }}" class="text-white hover:text-gray-200">
-                        <i class="fab fa-github fa-2x"></i>
-                    </a>
-                    {% endif %}
-                    {% if profile.linkedin %}
-                    <a href="{{ profile.linkedin }}" class="text-white hover:text-gray-200">
-                        <i class="fab fa-linkedin fa-2x"></i>
-                    </a>
-                    {% endif %}
-                    {% if profile.leetcode %}
-                    <a href="{{ profile.leetcode }}" class="text-white hover:text-gray-200">
-                        <i class="fas fa-code fa-2x"></i>
-                    </a>
-                    {% endif %}
+        </section>
+        
+
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold mb-8">About Me</h2>
+                <p class="text-lg leading-relaxed">
+                    I'm a passionate software developer pursuing a Bachelor of Technology in Computer Science and Engineering at the Indian Institute of Information Technology, Nagpur (2021-2025). With a strong foundation in various programming languages and frameworks, I'm dedicated to creating innovative solutions and contributing to impactful projects.
+                </p>
+            </div>
+        </section>
+
+        <section id="experience" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold mb-12">Professional Experience</h2>
+                <div class="mb-12">
+                    <h3 class="text-2xl font-semibold mb-2">Software Development Intern - Cyware Labs India Pvt. Limited</h3>
+                    <p class="text-blue-400 mb-4">August 2024 - Present</p>
+                    <ul class="list-disc list-inside">
+                        <li>Developed 5+ high-priority features for enterprise clients</li>
+                        <li>Resolved 30+ critical bugs, improving system reliability</li>
+                        <li>Optimized microservices architecture, reducing service vulnerabilities by 40%</li>
+                        <li>Implemented comprehensive metrics tracking, enabling 25% faster issue resolution</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-2">Software Development Intern - CyberForge: MLLabs.dev</h3>
+                    <p class="text-blue-400 mb-4">June 2023 - October 2023</p>
+                    <ul class="list-disc list-inside">
+                        <li>Developed 2 critical backend modules using FastAPI</li>
+                        <li>Implemented efficient and scalable API endpoints</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
-<!-- Other sections (Education, Projects, Skills) will go here -->
-{% endblock %}
+        <section id="projects" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold mb-12">Featured Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4">CRM Application</h3>
+                        <p class="mb-4">API for campaign management with message personalization and delivery status tracking. Used Express.js and MongoDB.</p>
+                        <a href="#" class="text-blue-400 hover:underline">View Project</a>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4">WhisperBox WebApp</h3>
+                        <p class="mb-4">Implemented 2-factor email authentication and created 15+ React components. Built with Next.js, MongoDB, and React.js.</p>
+                        <a href="#" class="text-blue-400 hover:underline">View Project</a>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4">Video Streaming WebApp</h3>
+                        <p class="mb-4">Developed a video streaming platform using Node.js, Express.js, and FFmpeg for video processing and encoding.</p>
+                        <a href="#" class="text-blue-400 hover:underline">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold mb-12">Skills & Technologies</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Languages -->
+                    <div class="bg-gray-800 p-4 rounded-lg text-center">
+                        <i class="fab fa-js text-4xl mb-2 text-yellow-400"></i>
+                        <p>JavaScript</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg text-center">
+                        <i class="fab fa-python text-4xl mb-2 text-blue-500"></i>
+                        <p>Python</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg text-center">
+                        <i class="fab fa-react text-4xl mb-2 text-blue-400"></i>
+                        <p>React</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg text-center">
+                        <i class="fab fa-node-js text-4xl mb-2 text-green-500"></i>
+                        <p>Node.js</p>
+                    </div>
+                    
+                    <!-- DevOps & Cloud -->
+                    <div class="bg-gray-800 p-4 rounded-lg text-center">
+                        <i class="fab fa-docker text-4xl mb-2 text-blue-400"></i>
+                        <p>Docker</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg text-center">
+                        <i class="fab fa-aws text-4xl mb-2 text-orange-400"></i>
+                        <p>AWS</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg text-center">
+                        <i class="fas fa-chart-line text-4xl mb-2 text-red-400"></i>
+                        <p>Prometheus</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg text-center">
+                        <i class="fab fa-python text-4xl mb-2 text-green-400"></i>
+                        <p>Django</p>
+                    </div>
+                </div>
+                
+                <!-- Additional Skills Categories -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-400">Cloud</h3>
+                        <ul class="space-y-2">
+                            <li>• Container Orchestration with Docker</li>
+                            <li>• AWS Cloud Services</li>
+                            <li>• Monitoring & Metrics with Prometheus</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-400">Backend Development</h3>
+                        <ul class="space-y-2">
+                            <li>• Django Framework</li>
+                            <li>• RESTful API Design</li>
+                            <li>• Microservices Architecture</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <section id="achievements" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold mb-12">Programming Achievements</h2>
+                <ul class="list-disc list-inside text-lg">
+                    <li>3 Star Rated on Codechef (Rating - 1670)</li>
+                    <li>Pupil on Codeforces (Rating - 1243)</li>
+                    <li>Solved 500+ Questions on Codechef, Codeforces, and Leetcode</li>
+                    <li>Achieved Global Rank 66 in Starters 116 Codechef Contest (Div 3)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-8">Get In Touch</h2>
+                <p class="mb-8">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
+                <a href="mailto:your.email@example.com" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full transition">Send an Email</a>
+                <div class="mt-12 flex justify-center space-x-6">
+                    <a href="https://github.com/arnav029" target="_blank" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-github text-3xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/arnav-patil-935384186/" target="_blank" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-linkedin text-3xl"></i>
+                    </a>
+                    <a href="https://leetcode.com/users/arnav029" target="_blank" class="text-gray-400 hover:text-white transition">
+                        <i class="fas fa-code text-3xl"></i>
+                    </a>
+                    <a href="https://x.com/arnav__patil" target="_blank" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter text-3xl"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black text-center py-6">
+        <p>&copy; 2025 Arnav Patil. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

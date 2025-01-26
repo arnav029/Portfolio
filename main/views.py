@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import Profile, Education, Project, Skill
 
-# Create your views here.
 def home(request):
     profile = Profile.objects.first()
     education = Education.objects.all()
