@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<!-- About Section -->
+<section id="about" class="min-h-screen flex items-center bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+    <div class="container mx-auto px-6 py-20">
+        <div class="flex flex-col md:flex-row items-center">
+            {% if profile.profile_image %}
+            <div class="md:w-1/3 mb-8 md:mb-0">
+                <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" 
+                     class="rounded-full w-64 h-64 object-cover shadow-2xl mx-auto">
+            </div>
+            {% endif %}
+            <div class="md:w-2/3 md:pl-12">
+                <h1 class="text-5xl font-bold mb-4">{{ profile.name }}</h1>
+                <h2 class="text-2xl mb-6">{{ profile.title }}</h2>
+                <p class="text-xl mb-8">{{ profile.bio }}</p>
+                <div class="flex space-x-4">
+                    {% if profile.github %}
+                    <a href="{{ profile.github }}" class="text-white hover:text-gray-200">
+                        <i class="fab fa-github fa-2x"></i>
+                    </a>
+                    {% endif %}
+                    {% if profile.linkedin %}
+                    <a href="{{ profile.linkedin }}" class="text-white hover:text-gray-200">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                    {% endif %}
+                    {% if profile.leetcode %}
+                    <a href="{{ profile.leetcode }}" class="text-white hover:text-gray-200">
+                        <i class="fas fa-code fa-2x"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Other sections (Education, Projects, Skills) will go here -->
+{% endblock %}
