@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arnav Patil - Backend Developer</title>
+
+    <!-- 1. Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. React Libraries -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- 3. Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- 4. Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 5. Custom Styles for the "Cool" Terminal Effect -->
+    <style>
+        body {
+            font-family: 'Fira Code', monospace;
+            background-color: #0D1117; /* A darker, more modern terminal black */
+        }
+
+        /* Blinking cursor animation */
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .cursor {
+            display: inline-block;
+            width: 0.6em;
+            height: 1.2em;
+            background-color: #A9B7C6; /* A softer white for the cursor */
+            animation: blink 1s step-end infinite;
+            vertical-align: bottom;
+        }
+
+        /* CRT Scanline Effect */
+        .crt-effect::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // --- Helper: Icon Components ---
+        const GithubIcon = () => (
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block h-4 w-4"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        );
+        const LinkedinIcon = () => (
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block h-4 w-4"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        );
+        const MailIcon = () => (
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block h-4 w-4"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+        );
+
+        // --- Main App Component ---
+        function App() {
+          const [input, setInput] = React.useState('');
+          const [history, setHistory] = React.useState([]);
+          const terminalRef = React.useRef(null);
+          const inputRef = React.useRef(null);
+
+          const commands = {
+            help: () => `
+Available commands:
+  <span class="text-green-400">about</span>         - Who I am
+  <span class="text-green-400">education</span>     - My academic background
+  <span class="text-green-400">experience</span>    - My professional work history
+  <span class="text-green-400">skills</span>        - What I can do
+  <span class="text-green-400">projects</span>      - Stuff I've built
+  <span class="text-green-400">achievements</span>  - My programming achievements
+  <span class="text-green-400">contact</span>       - How to reach me
+  <span class="text-green-400">clear</span>         - Clear the terminal
+            `,
+            about: () => `
+<span class="text-yellow-400 font-bold">Hey, I'm Arnav Patil.</span>
+
+A backend developer with a passion for building robust and scalable systems. I thrive on solving complex problems, optimising performance, and turning ideas into efficient, production-ready code.
+
+My journey is rooted in a strong foundation of computer science principles from IIIT Nagpur, and I'm currently applying my skills at Cyware Labs to build and enhance enterprise-level backend features.
+            `,
+            education: () => `
+<span class="text-yellow-400 font-bold">Indian Institute of Information Technology, Nagpur</span> (2021-2025)
+  - Bachelor of Technology in Computer Science and Engineering
+  - CGPA: 8.79
+            `,
+            experience: () => `
+<span class="text-yellow-400 font-bold">Associate Software Engineer - Cyware Labs India Pvt. Limited</span> (Aug 2024 - Present)
+  - Developed and optimized 5+ backend features using Django, Kafka, AWS, and Elasticsearch.
+  - Reduced data storage by 40% and improved ingestion throughput by 15% by engineering a STIX custom object deduplication system.
+  - Resolved 50+ critical bugs, increasing IOC character parsing capacity by 50x.
+  - Implemented 15+ Prometheus metrics and 8 Grafana dashboards, reducing issue detection time by 70%.
+
+<span class="text-yellow-400 font-bold">Software Development Intern - Cyber Forge: MLLabs.dev</span> (Jun 2023 - Oct 2023)
+  - Formulated 2 critical backend modules using FastAPI, reducing development time by 20%.
+  - Produced efficient and scalable API endpoints, demonstrating a strong understanding of modern backend architecture.
+            `,
+            skills: () => `
+<span class="text-yellow-400 font-bold">Languages:</span>
+  - C, C++, Python, Java, Javascript
+
+<span class="text-yellow-400 font-bold">Frameworks:</span>
+  - Django, FastAPI, Express.js, React.js
+
+<span class="text-yellow-400 font-bold">Developer Tools:</span>
+  - Git, Docker, Kafka, AWS, Elasticsearch, Prometheus, Grafana
+
+<span class="text-yellow-400 font-bold">Core Coursework:</span>
+  - Data Structures, Design and Analysis of Algorithms, Object Oriented Programming, Operating Systems
+            `,
+            projects: () => `
+Here are a few things I've built. For more, check my GitHub (see 'contact').
+
+<span class="text-yellow-400 font-bold">1. CRM Application</span>
+   - Designed an API for a campaign management system with message personalization and delivery status tracking.
+   - Tech: Express.js, MongoDB, Handlebars.
+
+<span class="text-yellow-400 font-bold">2. WhisperBox WebApp</span>
+   - Implemented 2-factor email authentication and built 15+ React components and 10+ API endpoints for a scalable anonymous messaging app.
+   - Tech: Next.js, MongoDB, React.js.
+
+<span class="text-yellow-400 font-bold">3. Video Streaming WebApp</span>
+   - Developed a video streaming platform facilitating HLS with M3U8 files and adaptive bitrate streaming.
+   - Tech: Node.js, Express.js, FFmpeg.
+            `,
+            achievements: () => `
+<span class="text-yellow-400 font-bold">Competitive Programming:</span>
+  - 3 Star Rated on Codechef (Rating 1670)
+  - Pupil on Codeforces (Rating 1243)
+  - Solved 500+ questions on Codechef, Codeforces, and Leetcode.
+  - Achieved Global Rank 66 in Starters 116 Codechef Contest (Div 3).
+            `,
+            contact: () => `
+You can find me here:
+
+  <a href="mailto:arnavnpatil@gmail.com" class="text-blue-400 hover:underline"><MailIcon /> Email: arnavnpatil@gmail.com</a>
+  <a href="https://github.com/arnav029" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline"><GithubIcon /> GitHub: arnav029</a>
+  <a href="https://linkedin.com/in/arnav-patil" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline"><LinkedinIcon /> LinkedIn: arnav-patil</a>
+            `,
+            sudo: () => `Permission denied. Nice try though.`,
+            clear: () => {
+              setHistory([]);
+              return '';
+            },
+          };
+
+          React.useEffect(() => {
+            setHistory([{ 
+                command: '', 
+                output: getWelcomeMessage(),
+            }]);
+            inputRef.current?.focus();
+          }, []);
+          
+          React.useEffect(() => {
+            if (terminalRef.current) {
+              terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+            }
+          }, [history]);
+
+          const getWelcomeMessage = () => {
+            return `
+        <div class="p-2">
+          <pre class="text-green-400">
+              ___                            __
+             /   |   ____   ____ _ _____   / /_
+            / /| |  / __ \\ / __ \`// ___/  / __/
+           / ___ | / /_/ // /_/ /(__  )  / /_  
+          /_/  |_|/ .___/ \\__,_//____/   \\__/  
+                 /_/                           
+          </pre>
+        </div>
+        <span class="text-yellow-400">Welcome to the portfolio of Arnav Patil.</span>
+        Type '<span class="text-green-400">help</span>' to see a list of available commands.
+            `;
+          };
+
+          const handleCommand = (e) => {
+            if (e.key === 'Enter') {
+              const command = input.toLowerCase().trim();
+              let output;
+
+              if (command) {
+                output = commands[command] ? commands[command]() : `Command not found: ${command}. Type 'help' for a list of commands.`;
+              } else {
+                output = '';
+              }
+              
+              const newHistory = [...history, { command, output }];
+              if (command === 'clear') {
+                  setHistory([]);
+              } else {
+                  setHistory(newHistory);
+              }
+              setInput('');
+            }
+          };
+
+          const focusInput = () => {
+            inputRef.current?.focus();
+          };
+
+          return (
+            <div 
+              className="bg-[#0D1117] text-[#A9B7C6] text-sm min-h-screen p-4 md-p-8 relative crt-effect"
+              onClick={focusInput}
+            >
+              <div 
+                ref={terminalRef}
+                className="w-full max-w-4xl mx-auto h-[calc(100vh-2rem)] overflow-y-auto"
+              >
+                {history.map((entry, index) => (
+                  <div key={index}>
+                    {entry.command && (
+                      <div className="flex items-center">
+                        <span className="text-blue-400">arnav@portfolio:~$</span>
+                        <span className="ml-2">{entry.command}</span>
+                      </div>
+                    )}
+                    {entry.output && (
+                       <div className="whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: entry.output }} />
+                    )}
+                  </div>
+                ))}
+                <div className="flex items-center mt-2">
+                    <span className="text-blue-400">arnav@portfolio:~$</span>
+                    <span className="ml-2">{input}</span>
+                    <span className="cursor"></span>
+                </div>
+                <input
+                    ref={inputRef}
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleCommand}
+                    className="absolute top-0 left-0 w-0 h-0 opacity-0" // Hide the actual input
+                    autoFocus
+                />
+              </div>
+            </div>
+          );
+        }
+
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+
+    </script>
+</body>
+</html>
