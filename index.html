@@ -76,9 +76,9 @@ Available commands:
             <div class="whitespace-pre-wrap">
 <span class="text-yellow-400 font-bold">Hey, I'm Arnav Patil.</span>
 
-I am a Software Engineer at Cyware Labs with a strong focus on backend architecture and system design. 
+I am a Software Engineer at Cyware Labs building AI-powered systems for threat intelligence at scale.
 
-My expertise lies in building highly configurable data aggregation pipelines, optimizing caching strategies to reduce database load, and designing zero-downtime configuration systems. I enjoy solving complex problems using Python, Django, Kafka, and AWS.
+My work spans NLP search engines, database-configurable AI summarization, and high-throughput data pipelines processing millions of objects daily. I care about system design, reliability under multi-tenant load, and making tools accessible to non-technical users. I build with Python, Django, FastAPI, Kafka, and AWS.
             </div>
         </div>
 
@@ -100,15 +100,18 @@ My expertise lies in building highly configurable data aggregation pipelines, op
                 <span class="ml-2">experience</span>
             </div>
             <div class="whitespace-pre-wrap">
-<span class="text-yellow-400 font-bold">Software Engineer - Cyware Labs India Pvt. Limited</span> (Sept 2025 - Present)
-  - Built a highly configurable data aggregation pipeline for threat intelligence with 2-level deep graph queries.
-  - Optimized system with a caching strategy that reduced database queries by 60%.
-  - Implemented a JSON-based configuration system supporting dynamic field mapping for 22+ extraction methods.
+<span class="text-yellow-400 font-bold">Software Engineer - Cyware Labs India Pvt. Ltd</span> (Sep 2025 - Present)
+  - Built an AI-powered NLP search engine converting plain-English queries into complex CQL across 100+ fields with nested boolean logic, letting non-technical analysts at Fortune 500 and ISAC clients run threat hunts at 3–4s latency.
+  - Architected a database-configurable AI summarization system, extending coverage from 2 to 6 object types (25+ indicator subtypes) with zero code changes to onboard new types; design doc adopted as team standard.
+  - Engineered a threat-intelligence aggregation pipeline with two-level deep graph traversal processing millions of objects daily, cutting database queries 60% through a multi-layer caching strategy.
+  - Closed a platform-wide unbounded-query vulnerability with a pagination guardrail (500-record cap) across 6 microservices, reducing worst-case response payloads up to 20× and stabilizing PostgreSQL/Elasticsearch under multi-tenant traffic.
+  - Primary responder for a P0 outage (API-gateway failure + database corruption), restoring customer access within SLA; resolved 50+ escalations and 100+ production bugs across AWS services.
+  - Cut CI pipeline runtime 50% (60→30 min) and unit-test latency 99% (600s→6s) by profiling and refactoring the test suite.
 
-<span class="text-yellow-400 font-bold">SDE Intern - Cyware Labs India Pvt. Limited</span> (Aug 2024 - Aug 2025)
-  - Developed 5+ backend features using Django, Kafka, and Elasticsearch.
-  - Engineered a STIX custom object deduplication system, reducing data storage by 40% and improving ingestion throughput by 15%.
-  - Resolved 100+ critical bugs across customer-facing portals.
+<span class="text-yellow-400 font-bold">Software Development Engineer Intern - Cyware Labs India Pvt. Ltd</span> (Aug 2024 - Aug 2025)
+  - Designed a STIX custom object deduplication system across 2 microservices, eliminating 70% of redundant ingestions and reducing Postgres/Elasticsearch storage by 40% while cutting code complexity by 40%.
+  - Shipped 5+ backend features using Django, Kafka, AWS, and Elasticsearch for enterprise data ingestion pipelines, collaborating cross-functionally with DevOps and frontend teams.
+  - Resolved 100+ bugs across customer-facing portals and data ingestion services, addressing configuration, validation, and parsing issues in production AWS environments.
             </div>
         </div>
 
@@ -121,11 +124,17 @@ My expertise lies in building highly configurable data aggregation pipelines, op
 <span class="text-yellow-400 font-bold">Languages:</span>
   - C, C++, Python, Java, JavaScript
 
+<span class="text-yellow-400 font-bold">Databases:</span>
+  - PostgreSQL, Redis, Elasticsearch
+
 <span class="text-yellow-400 font-bold">Web Frameworks:</span>
   - Django, FastAPI
 
+<span class="text-yellow-400 font-bold">Concepts:</span>
+  - REST APIs, Microservices, Event-Driven Architecture, Caching
+
 <span class="text-yellow-400 font-bold">Developer Tools:</span>
-  - Git, Docker, Kafka, AWS, Elasticsearch, PostgreSQL
+  - Git, Docker, Kafka, AWS
             </div>
         </div>
 
@@ -135,15 +144,12 @@ My expertise lies in building highly configurable data aggregation pipelines, op
                 <span class="ml-2">projects</span>
             </div>
             <div class="whitespace-pre-wrap">
-<span class="text-yellow-400 font-bold">1. Synapse: Zero Downtime Config System</span>
-   - <span class="text-gray-400">Tech: Python, Kafka, PostgreSQL, Docker, Django</span>
-   - Developed a real-time Dynamic Configuration Management System reducing propagation time to under 200ms.
-   - Engineered a decoupled, event-driven architecture handling updates for 100+ concurrent services.
-
-<span class="text-yellow-400 font-bold">2. CRM Application</span>
-   - <span class="text-gray-400">Tech: Express.js, MongoDB</span>
-   - Designed a campaign management API with message personalization and 90% accuracy in delivery tracking.
-   - Leveraged Handlebars for server-side dynamic HTML generation.
+<span class="text-yellow-400 font-bold">1. PyLSM: LSM-Tree Storage Engine</span>
+   - <span class="text-gray-400">Tech: Python, FastAPI</span>
+   - Built a persistent key-value storage engine from scratch on the LSM-Tree architecture (RocksDB/Cassandra/Bigtable style): custom binary SSTable format (versioned, CRC32-validated), fsync-durable Write-Ahead Log, 7-level leveled compaction, and a FastAPI interface — zero external database libraries.
+   - Reduced worst-case read I/O by ~94% with a per-SSTable Bloom filter (double-hashing, 1% false-positive rate) paired with a sparse index, replacing full-file linear scans with binary search over a bounded block.
+   - Enabled lock-contention-free concurrent reads alongside a background compaction daemon (k-way min-heap merge) via a lock-snapshot pattern where readers copy the file manifest under a mutex and release before all disk I/O.
+   - Validated with 77 passing tests across 7 modules; benchmarked against SQLite (WAL mode, 50K ops): ~24× faster random reads, 9× sequential reads, 1.45× sequential writes.
             </div>
         </div>
 
@@ -154,10 +160,8 @@ My expertise lies in building highly configurable data aggregation pipelines, op
             </div>
             <div class="whitespace-pre-wrap">
 <span class="text-yellow-400 font-bold">Competitive Programming:</span>
-  - <span class="text-green-400">CodeChef:</span> 3 Star Rated (Max Rating 1670)
-  - <span class="text-green-400">CodeForces:</span> Pupil (Max Rating 1243)
   - <span class="text-green-400">Global Rank 66:</span> CodeChef Starters 116 (Div 3)
-  - Solved 500+ questions across LeetCode, CodeChef, and CodeForces.
+  - Active participant with a consistent problem-solving history across CodeForces and CodeChef.
             </div>
         </div>
         
